@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
 
-import Editor from './Editor'
+import Editor from './components/Editor'
 
 const render = (Component) => {
   ReactDOM.render(
@@ -16,7 +16,7 @@ const render = (Component) => {
 render(Editor)
 
 if(module.hot) {
-  module.hot.accept('./Editor', () => {
+  module.hot.accept('./components/Editor', () => {
     render(Editor)
   })
 }
