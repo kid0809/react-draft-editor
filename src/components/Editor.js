@@ -72,8 +72,9 @@ class RichEditorExample extends React.Component {
 
     // If the user changes block type before entering any text, we can
     // either style the placeholder or hide it. Let's just hide it now.
-    let className = 'RichEditor-editor';
-    var contentState = editorState.getCurrentContent();
+    let className = 'RichEditor-editor'
+    var contentState = editorState.getCurrentContent()
+    console.log(contentState)
 
     if (!contentState.hasText()) {
       if (contentState.getBlockMap().first().getType() !== 'unstyled') {
