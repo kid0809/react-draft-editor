@@ -5,6 +5,7 @@ import { AppContainer } from 'react-hot-loader'
 import Editor from './components/Editor'
 import Test from './components/Test'
 import myEditor from './components/myEditor'
+import BaseRouter from './router'
 
 const render = (Component) => {
   ReactDOM.render(
@@ -15,10 +16,8 @@ const render = (Component) => {
   )
 }
 
-render(myEditor)
+render(BaseRouter)
 
 if(module.hot) {
-  module.hot.accept('./components/myEditor', () => {
-    render(myEditor)
-  })
+  module.hot.accept()
 }
