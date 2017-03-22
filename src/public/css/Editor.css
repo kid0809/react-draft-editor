@@ -19,7 +19,7 @@ ul {
 	display: inline-block;
   width: 12px;
   height: 12px;
-  background: #000;
+  background: rgba(0,0,0,0.8);
   cursor: pointer;
 }
 
@@ -33,6 +33,15 @@ ul {
   z-index: 99;
 }
 
+.color-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  opacity: 0;
+  z-index: 98;
+}
 
 .color-warpper .color-warpper-header {
   padding: 5px 0px;

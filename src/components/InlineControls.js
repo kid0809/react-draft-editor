@@ -6,7 +6,7 @@ const INLINE_STYLES = [
   {classname: 'fa-bold', style: 'BOLD'},
   {classname: 'fa-italic', style: 'ITALIC'},
   {classname: 'fa-underline', style: 'UNDERLINE'},
-  {classname: 'fa-eraser', style: 'CODE'},
+  {classname: 'fa-strikethrough', style: 'LINETHROUGH'},
 ]
 
 const InlineControls = (props) => {

@@ -123,11 +123,8 @@ const colorStyleMap = {
 }
 
 const styleMap = {
-  CODE: {
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
-    fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
-    fontSize: 16,
-    padding: 2,
+  LINETHROUGH: {
+    textDecoration: 'line-through'
   },
   red: {
     color: 'rgba(255, 0, 0, 1.0)',

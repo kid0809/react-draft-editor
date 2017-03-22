@@ -21,8 +21,12 @@ class ColorButton extends React.Component {
     //   e.preventDefault();
     //   this.props.onColorToggle(this.props.style);
     // }
-    this.showToggle = () => this.setState({ show: !this.state.show })
-    this.bulrHandle = () => this.setState({ show: false })
+    this.close = () => this.setState({ show: false })
+  }
+
+
+  _showToggle(e) {
+    this.setState({ show: !this.state.show })
   }
 
   onColorToggle(style, event) {
@@ -41,13 +45,16 @@ class ColorButton extends React.Component {
 
     if (show) {
       return (
-        <div className="color-warpper">
-          <div className="color-warpper-header">标准颜色</div>
-          <div className="color-warpper-content">
-            <ul>
-              {colorList}
-            </ul>
+        <div>
+          <div className="color-warpper">
+            <div className="color-warpper-header">标准颜色</div>
+            <div className="color-warpper-content">
+              <ul>
+                {colorList}
+              </ul>
+            </div>
           </div>
+          <div className="color-mask" onClick={this.close}></div>
         </div>
       )
     }
@@ -65,7 +72,7 @@ class ColorButton extends React.Component {
 
     return (
       <span className="color-button" style={{ position: 'relative' }}>
-        <i className="color-icon" onMouseDown={this.showToggle} style={style}/>
+        <i className="color-icon" onMouseDown={this._showToggle.bind(this)} style={style}/>
         {this.renderColorWarp()}
       </span>
     );
