@@ -1,5 +1,5 @@
 # react-draft-editor
 draft.js 练手项目
-npm install
-npm start
-open localhost:9000
+1. npm install
+2. npm start
+3. open localhost:9000
