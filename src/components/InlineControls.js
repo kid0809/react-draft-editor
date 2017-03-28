@@ -1,6 +1,7 @@
 import React from 'react'
 import ControlButton from './ControlButton'
 import ColorButton from './ColorButton'
+import LinkButton from './LinkButton'
 
 const INLINE_STYLES = [
   {classname: 'fa-bold', style: 'BOLD'},
@@ -25,6 +26,15 @@ const InlineControls = (props) => {
     <div className="RichEditor-controls">
       {buttons}
       <ColorButton inlineStyle={currentStyle} onColorToggle={props.onColorToggle} />
+      <LinkButton  
+        onURLChange={props.onURLChange}
+        promptForLink={props.promptForLink}
+        confirmLink={props.confirmLink}
+        onLinkInputKeyDown={props.onLinkInputKeyDown}
+        removeLink={props.removeLink}
+        closeUrlInput={props.closeUrlInput}
+        showURLInput={props.showURLInput}
+        urlValue={props.urlValue} />
     </div>
   )
 }

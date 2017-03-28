@@ -33,7 +33,7 @@ ul {
   z-index: 99;
 }
 
-.color-mask {
+.mask {
   position: fixed;
   top: 0;
   left: 0;
@@ -58,3 +58,18 @@ ul {
   display: inline-block;
   margin-right: 5px;
 }
+
+.link-warpper {
+  font-size: 12px;
+  padding: 10px;
+  position: absolute;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #fff;
+  z-index: 99;
+}
+.link-warpper input {
+  outline: none;
+}
+
+

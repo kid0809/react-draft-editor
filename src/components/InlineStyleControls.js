@@ -1,6 +1,7 @@
 import React from 'react'
 import StyleButton from './StyleButton'
 
+
 var INLINE_STYLES = [
   {label: 'BOLD', style: 'BOLD'},
   {label: 'Italic', style: 'ITALIC'},

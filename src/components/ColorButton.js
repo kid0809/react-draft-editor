@@ -54,7 +54,7 @@ class ColorButton extends React.Component {
               </ul>
             </div>
           </div>
-          <div className="color-mask" onClick={this.close}></div>
+          <div className="mask" onClick={this.close}></div>
         </div>
       )
     }

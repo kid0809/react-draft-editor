@@ -5,7 +5,8 @@ module.exports = {
   devServer: {
     contentBase: path.resolve(__dirname),
     publicPath: '/dist/',
-    hot: true
+    hot: true,
+    historyApiFallback: true,
   },
 
   entry: [
