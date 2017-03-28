@@ -6,20 +6,17 @@ import {
 } from 'react-router-dom'
 
 import Editor from './components/Editor'
-import Test from './components/Test'
 import myEditor from './components/myEditor'
 
 const BasicRouter = () => (
   <Router>
     <div>
       <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/test">About</Link></li>
-        <li><Link to="/myeditor">Topics</Link></li>
+        <li><Link to="/">draft-editor</Link></li>
+        <li><Link to="/targeteditor">target-editor</Link></li>
       </ul>
       <Route exact path="/" component={Editor} />
-      <Route path="/test" component={Test} />
-      <Route path="/myeditor" component={myEditor} />
+      <Route path="/targeteditor" component={myEditor} />
     </div>
   </Router>
 )
