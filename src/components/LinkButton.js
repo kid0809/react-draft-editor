@@ -34,12 +34,12 @@ class LinkButton extends React.Component {
     return (
       <span>
         <span className="color-button" style={{ position: 'relative' }}>
-          <i className="fa fa-link" onClick={this.props.promptForLink} />
+          <i className="fa fa-link" onClick={this.props.promptForLink} style={{ cursor: 'pointer' }} />
           {this.renderLinkWarp()}
         </span>
 
         <span className="color-button">
-          <i className="fa fa-unlink" onClick={this.props.removeLink} />
+          <i className="fa fa-unlink" onClick={this.props.removeLink} style={{ cursor: 'pointer' }} />
         </span>
       </span>
     )

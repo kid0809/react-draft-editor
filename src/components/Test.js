@@ -1,5 +1,6 @@
 import React from 'react'
 import {Editor, EditorState, RichUtils, convertToRaw, Modifier, CompositeDecorator} from 'draft-js'
+import {stateToHTML} from 'draft-js-export-html'
 import InlineControls from './InlineControls'
 import '../public/css/Draft.css'
 import '../public/css/RichEditor.css'
@@ -141,6 +142,31 @@ class Test extends React.Component {
     }
   }
 
+  renderHTML() {
+    const {editorState} = this.state
+    const contentState = editorState.getCurrentContent()
+
+    const options = {
+      inlineStyles: {
+        lineThrough: {style: {textDecoration: 'line-through'}},
+        red: {style: {color: 'rgba(255, 0, 0, 1.0)'}},
+        orange: {style:{color: 'rgba(255, 127, 0, 1.0)'}},
+        yellow: {style:{color: 'rgba(180, 180, 0, 1.0)'}},
+        green: {style:{color: 'rgba(0, 180, 0, 1.0)'}},
+        blue: {style:{color: 'rgba(0, 0, 255, 1.0)'}},
+        indigo: {style:{color: 'rgba(75, 0, 130, 1.0)'}},
+        violet: {style:{color: 'rgba(127, 0, 255, 1.0)'}}
+      },
+    }
+
+    const content = stateToHTML(contentState, options)
+
+
+    return (
+      <div dangerouslySetInnerHTML={{__html: content}}></div>
+    )
+  }
+
   render() {
     const {editorState} = this.state
 
@@ -157,29 +183,32 @@ class Test extends React.Component {
     }
 
     return (
-      <div className="RichEditor-root">
-        <InlineControls
-          editorState={editorState}
-          onToggle={this.toggleInlineButton}
-          onColorToggle={this.toggleColor}
-          onURLChange={this.onURLChange}
-          promptForLink={this.promptForLink}
-          confirmLink={this.confirmLink}
-          onLinkInputKeyDown={this.onLinkInputKeyDown}
-          removeLink={this.removeLink}
-          closeUrlInput={this.closeUrlInput}
-          urlValue={this.state.urlValue}
-          showURLInput={this.state.showURLInput}
-        />
-        <div className={className}>
-          <Editor
+      <div>
+        <div className="RichEditor-root">
+          <InlineControls
             editorState={editorState}
-            customStyleMap={styleMap}
-            onChange={this.onChange}
-            placeholder="Tell a story..."
-            ref="editor"
+            onToggle={this.toggleInlineButton}
+            onColorToggle={this.toggleColor}
+            onURLChange={this.onURLChange}
+            promptForLink={this.promptForLink}
+            confirmLink={this.confirmLink}
+            onLinkInputKeyDown={this.onLinkInputKeyDown}
+            removeLink={this.removeLink}
+            closeUrlInput={this.closeUrlInput}
+            urlValue={this.state.urlValue}
+            showURLInput={this.state.showURLInput}
           />
+          <div className={className}>
+            <Editor
+              editorState={editorState}
+              customStyleMap={styleMap}
+              onChange={this.onChange}
+              placeholder="Tell a story..."
+              ref="editor"
+            />
+          </div>
         </div>
+        {this.renderHTML()}
       </div>
     )
   }
@@ -201,7 +230,7 @@ function findLinkEntities(contentBlock, callback, contentState) {
 const Link = (props) => {
   const {url} = props.contentState.getEntity(props.entityKey).getData()
   return (
-    <a href={url} style={{ color: '#3b5998', textDecoration: 'underline',}}>
+    <a href={url} style={{ color: '#3b5998', textDecoration: 'underline' }}>
       {props.children}
     </a>
   )
@@ -232,7 +261,7 @@ const colorStyleMap = {
 }
 
 const styleMap = {
-  LINETHROUGH: {
+  lineThrough: {
     textDecoration: 'line-through'
   },
   red: {
