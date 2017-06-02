@@ -1,15 +1,15 @@
 import React from 'react'
 
 
-class LinkButton extends React.Component {
+class PictureButton extends React.Component {
   constructor() {
-    super();
+    super()
   }
 
 
-  renderLinkWarp() {
-    const { showURLInput, onURLChange, urlValue, onLinkInputKeyDown, closeUrlInput } = this.props
-    if (showURLInput) {
+  renderPicWarp() {
+    const { showImgInput, onURLChange, urlValue, onImageKeyDown, closeUrlInput } = this.props
+    if (showImgInput) {
       return (
         <div>
           <div className="link-warpper">
@@ -18,7 +18,7 @@ class LinkButton extends React.Component {
               ref="url"
               type="text"
               value={urlValue}
-              onKeyDown={onLinkInputKeyDown}
+              onKeyDown={onImageKeyDown}
             />
           </div>
           <div className="mask" onClick={closeUrlInput}></div>
@@ -30,14 +30,13 @@ class LinkButton extends React.Component {
   }
 
   render() {
-    console.log(this.props.showURLInput)
     return (
       <span className="customer-styleButton">
-        <i className="fa fa-link" onClick={this.props.promptForLink} />
-        {this.renderLinkWarp()}
+        <i className="fa fa-picture-o"  onClick={this.props.promptForImage}/>
+        {this.renderPicWarp()}
       </span>
     )
   }
 }
 
-export default LinkButton
+export default PictureButton

@@ -17,10 +17,7 @@ class ColorButton extends React.Component {
     this.state = {
       show: false
     }
-    // this.onColorToggle = (e) => {
-    //   e.preventDefault();
-    //   this.props.onColorToggle(this.props.style);
-    // }
+
     this.close = () => this.setState({ show: false })
   }
 
@@ -32,6 +29,9 @@ class ColorButton extends React.Component {
   onColorToggle(style, event) {
     event.preventDefault()
     this.props.onColorToggle(style)
+    this.setState({
+      show: false
+    })
   }
 
 
@@ -39,7 +39,7 @@ class ColorButton extends React.Component {
     const { show } = this.state
     const colorList = colors.map((data, i) => {
       return (
-        <li key={i}><i className="color-icon" style={{ background: data.color }} onMouseDown={this.onColorToggle.bind(this, data.style)} /></li>
+        <li key={i}><i className="color-icon" style={{ background: data.color }} onClick={this.onColorToggle.bind(this, data.style)} /></li>
       )
     })
 
@@ -68,11 +68,11 @@ class ColorButton extends React.Component {
       return inlineStyle.has(data.style)
     })[0]
 
-    const style = currentStyle ? { background: currentStyle.color } : null
+    const style = currentStyle ? { color: currentStyle.color } : null
 
     return (
-      <span className="color-button" style={{ position: 'relative' }}>
-        <i className="color-icon" onMouseDown={this._showToggle.bind(this)} style={style}/>
+      <span className="customer-styleButton">
+        <i className="fa fa-font" onClick={this._showToggle.bind(this)} style={style}/>
         {this.renderColorWarp()}
       </span>
     );

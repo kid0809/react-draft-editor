@@ -46,6 +46,10 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.(png|jpg|svg)$/,
+        loader: 'url-loader?limit=40000'
       }
     ]
   },

@@ -1,13 +1,13 @@
 import React from 'react'
 import {Editor, EditorState, RichUtils, convertToRaw, Modifier, CompositeDecorator, AtomicBlockUtils} from 'draft-js'
 import {stateToHTML} from 'draft-js-export-html'
-import InlineControls from './InlineControls'
-import '../public/css/Editor.css'
+import Controls from './Controls'
+
+import '../public/css/Xeditor.css'
 import '../public/css/Draft.css'
-import '../public/css/RichEditor.css'
 
 
-class Test extends React.Component {
+class XEditor extends React.Component {
   constructor(props) {
     super(props)
     const decorator = new CompositeDecorator([
@@ -20,15 +20,18 @@ class Test extends React.Component {
     this.state = {
       editorState: EditorState.createEmpty(decorator),
       showURLInput: false,
-      urlValue: ''
+      showImgInput: false,
+      urlValue: '',
+      url: '',
     }
 
     this.onChange = (editorState) => this.setState({editorState})
     this.toggleInlineButton = (inlineStyle) => this._toggleInlineButton(inlineStyle)
+    this.toggleBlockType = (type) => this._toggleBlockType(type)
     this.toggleColor = (toggledColor) => this._toggleColor(toggledColor)
     this.promptForLink = this._promptForLink.bind(this)
     this.onURLChange = (e) => this.setState({urlValue: e.target.value})
-    this.closeUrlInput = () => this.setState({showURLInput: false})
+    this.closeUrlInput = () => this.setState({showURLInput: false, showImgInput: false})
     this.confirmLink = this._confirmLink.bind(this)
     this.onLinkInputKeyDown = this._onLinkInputKeyDown.bind(this)
     this.removeLink = this._removeLink.bind(this)
@@ -37,7 +40,17 @@ class Test extends React.Component {
     this.onImageKeyDown = this._onImageKeyDown.bind(this)
   }
 
+  // 块级样式
+  _toggleBlockType(blockType) {
+    this.onChange(
+      RichUtils.toggleBlockType(
+        this.state.editorState,
+        blockType
+      )
+    )
+  }
 
+  // 行内样式
   _toggleInlineButton(inlineStyle) {
     this.onChange(
       RichUtils.toggleInlineStyle(
@@ -47,12 +60,12 @@ class Test extends React.Component {
     )
   }
 
-
+  // 颜色
   _toggleColor(toggledColor) {
     const {editorState} = this.state
     const selection = editorState.getSelection()
 
-    // Let's just allow one color at a time. Turn off all active colors.
+    // 切换颜色时循环之前的所选颜色并去掉
     const nextContentState = Object.keys(colorStyleMap)
       .reduce((contentState, color) => {
         return Modifier.removeInlineStyle(contentState, selection, color)
@@ -84,6 +97,8 @@ class Test extends React.Component {
     this.onChange(nextEditorState)
   }
 
+
+  // link方法
   _promptForLink() {
     const {editorState} = this.state;
     const selection = editorState.getSelection();
@@ -168,7 +183,7 @@ class Test extends React.Component {
         entityKey,
         ' '
       ),
-      showURLInput: false,
+      showImgInput: false,
       urlValue: '',
     })
   }
@@ -182,11 +197,13 @@ class Test extends React.Component {
   _promptForImage() {
     const {editorState} = this.state
     this.setState({
-      showURLInput: true,
+      showImgInput: true,
       urlValue: '',
     })
   }
 
+
+  // 转换为HTML
   renderHTML() {
     const {editorState} = this.state
     const contentState = editorState.getCurrentContent()
@@ -202,59 +219,70 @@ class Test extends React.Component {
         indigo: {style:{color: 'rgba(75, 0, 130, 1.0)'}},
         violet: {style:{color: 'rgba(127, 0, 255, 1.0)'}}
       },
+      blockRenderers: {
+        blockquote: (block) => {
+          return '<blockquote class="editor-blockquote">' + escape(block.getText()) + '</blockquote>'
+        },
+
+        'code-block': (block) => {
+          return '<div class="editor-code">' + escape(block.getText()) + '</div>'
+        },
+      }
     }
 
     const content = stateToHTML(contentState, options)
 
 
     return (
-      <div dangerouslySetInnerHTML={{__html: content}}></div>
+      <div dangerouslySetInnerHTML={{__html: content}} className="draft-html"></div>
     )
   }
 
   render() {
     const {editorState} = this.state
 
-    // If the user changes block type before entering any text, we can
-    // either style the placeholder or hide it. Let's just hide it now.
-    let className = 'RichEditor-editor'
-    var contentState = editorState.getCurrentContent()
-
+    // 使用块级样式隐藏placeholder
+    let className = 'editor-content'
+    const contentState = editorState.getCurrentContent()
 
     if (!contentState.hasText()) {
       if (contentState.getBlockMap().first().getType() !== 'unstyled') {
-        className += ' RichEditor-hidePlaceholder'
+        className += ' editor-hidePlaceholder'
       }
     }
 
+
     return (
       <div>
-        <div className="RichEditor-root">
-          <InlineControls
-            editorState={editorState}
-            onToggle={this.toggleInlineButton}
-            onColorToggle={this.toggleColor}
-            onURLChange={this.onURLChange}
-            promptForLink={this.promptForLink}
-            confirmLink={this.confirmLink}
-            onLinkInputKeyDown={this.onLinkInputKeyDown}
-            removeLink={this.removeLink}
-            closeUrlInput={this.closeUrlInput}
-            urlValue={this.state.urlValue}
-            showURLInput={this.state.showURLInput}
-            confirmImage = {this.confirmImage}
-            promptForImage = {this.promptForImage}
-            onImageKeyDown = {this.onImageKeyDown}
-          />
-          <div className={className}>
-            <Editor
+        <div className="editor-root">
+          <div className="editor-controls">
+            <Controls 
               editorState={editorState}
-              customStyleMap={styleMap}
-              blockRendererFn={mediaBlockRenderer}
-              onChange={this.onChange}
+              onInlineToggle={this.toggleInlineButton}
+              onBlockToggle={this.toggleBlockType}
+              onColorToggle={this.toggleColor}
+              onURLChange={this.onURLChange}
+              promptForLink={this.promptForLink}
+              confirmLink={this.confirmLink}
+              onLinkInputKeyDown={this.onLinkInputKeyDown}
+              removeLink={this.removeLink}
+              closeUrlInput={this.closeUrlInput}
+              urlValue={this.state.urlValue}
+              showURLInput={this.state.showURLInput}
+              showImgInput={this.state.showImgInput}
+              confirmImage = {this.confirmImage}
+              promptForImage = {this.promptForImage}
+              onImageKeyDown = {this.onImageKeyDown} />
+          </div>
+          <div className={className}>
+            <Editor 
+              editorState={this.state.editorState} 
+              onChange={this.onChange} 
               placeholder="Tell a story..."
-              ref="editor"
-            />
+              blockStyleFn={getBlockStyle}
+              blockRendererFn={mediaBlockRenderer}
+              customStyleMap={styleMap}
+              ref="editor" />
           </div>
         </div>
         {this.renderHTML()}
@@ -263,6 +291,7 @@ class Test extends React.Component {
   }
 }
 
+// 图片样式
 function mediaBlockRenderer(block) {
   if (block.getType() === 'atomic') {
     return {
@@ -301,15 +330,17 @@ function findLinkEntities(contentBlock, callback, contentState) {
   )
 }
 
-const Link = (props) => {
-  const {url} = props.contentState.getEntity(props.entityKey).getData()
-  return (
-    <a href={url} style={{ color: '#3b5998', textDecoration: 'underline' }}>
-      {props.children}
-    </a>
-  )
+
+
+// 自定义块级样式
+function getBlockStyle(block) {
+  switch (block.getType()) {
+    case 'blockquote': return 'editor-blockquote'
+    default: return null
+  }
 }
 
+// 自定义颜色
 const colorStyleMap = {
   red: {
     color: 'rgba(255, 0, 0, 1.0)',
@@ -333,6 +364,9 @@ const colorStyleMap = {
     color: 'rgba(127, 0, 255, 1.0)',
   },
 }
+
+
+// 自定义样式
 
 const styleMap = {
   lineThrough: {
@@ -361,5 +395,27 @@ const styleMap = {
   },
 }
 
+// link装饰器
+function findLinkEntities(contentBlock, callback, contentState) {
+  contentBlock.findEntityRanges(
+    (character) => {
+      const entityKey = character.getEntity()
+      return (
+        entityKey !== null &&
+        contentState.getEntity(entityKey).getType() === 'LINK'
+      )
+    },
+    callback
+  )
+}
 
-export default Test
+const Link = (props) => {
+  const {url} = props.contentState.getEntity(props.entityKey).getData()
+  return (
+    <a href={url} style={{ color: '#3b5998', textDecoration: 'underline' }}>
+      {props.children}
+    </a>
+  )
+}
+
+export default XEditor

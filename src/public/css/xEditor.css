@@ -1,0 +1,148 @@
+.editor-root {
+  background: #fff;
+  border: 1px solid #ddd;
+  font-family: 'Georgia', serif;
+  font-size: 14px;
+  width: 600px;
+  border-radius: 5px;
+}
+
+.editor-root ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.editor-root .editor-controls {
+  font-family: 'Helvetica', sans-serif;
+  font-size: 14px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.editor-root .editor-content {
+  border-top: 1px solid #ddd;
+  cursor: text;
+  font-size: 16px;
+  min-height: 100px;
+  padding: 0 10px 10px 10px;
+}
+
+.editor-hidePlaceholder .public-DraftEditorPlaceholder-root {
+  display: none;
+}
+
+.editor-root .public-DraftEditorPlaceholder-root,
+.editor-root .public-DraftEditor-content {
+  margin: 0 -15px -15px;
+  padding: 15px;
+}
+
+/* blockquote 样式 */
+.editor-blockquote {
+  border-left: 5px solid #eee;
+  color: #666;
+  font-style: italic;
+  margin: 16px 0;
+  padding: 10px 20px;
+}
+
+/* code样式 */
+.editor-content .public-DraftStyleDefault-pre {
+  background-color: rgba(0, 0, 0, 0.05);
+  font-size: 16px;
+  padding: 20px;
+}
+
+.editor-code {
+  background-color: rgba(0, 0, 0, 0.05);
+  font-size: 16px;
+  padding: 20px;
+  margin: 16px 0;
+}
+
+.customer-styleButton {
+  color: #999;
+  margin-right: 16px;
+  padding: 2px 0;
+  position: relative;
+}
+
+.customer-styleButton i {
+  cursor: pointer;
+}
+
+.customer-activeButton {
+  color: #5890ff;
+}
+
+.color-icon {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  cursor: pointer;
+}
+
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  opacity: 0;
+  z-index: 98;
+}
+
+.color-warpper {
+  font-size: 12px;
+  position: absolute;
+  width: 150px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #fff;
+  z-index: 99;
+}
+
+.color-warpper .color-warpper-header {
+  padding: 5px 0px;
+  margin: 0 7px;
+  border-bottom: 1px solid #ddd;
+}
+
+.color-warpper .color-warpper-content {
+  padding: 8px 0px;
+  margin: 0 7px;
+}
+
+.color-warpper .color-warpper-content li {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.link-warpper {
+  font-size: 12px;
+  padding: 10px;
+  position: absolute;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #fff;
+  z-index: 99;
+}
+
+.link-warpper input {
+  outline: none;
+}
+
+.draft-html {
+  width: 600px;
+  padding: 15px;
+}
+.draft-html img {
+  width: 100%;
+}
