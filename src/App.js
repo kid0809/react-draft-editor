@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
 
-import BaseRouter from './router'
+import Editor from './components/XEditor'
 
 const render = (Component) => {
   ReactDOM.render(
@@ -13,7 +13,7 @@ const render = (Component) => {
   )
 }
 
-render(BaseRouter)
+render(Editor)
 
 if(module.hot) {
   module.hot.accept()

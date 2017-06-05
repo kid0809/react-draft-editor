@@ -1,20 +1,21 @@
+.main {
+  display: flex;
+}
+
 .editor-root {
   background: #fff;
   border: 1px solid #ddd;
-  font-family: 'Georgia', serif;
   font-size: 14px;
   width: 600px;
   border-radius: 5px;
 }
 
-.editor-root ul {
+.editor-root ul, .editor-root ol {
   margin: 0;
   padding: 0;
-  list-style: none;
 }
 
 .editor-root .editor-controls {
-  font-family: 'Helvetica', sans-serif;
   font-size: 14px;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -31,7 +32,7 @@
   cursor: text;
   font-size: 16px;
   min-height: 100px;
-  padding: 0 10px 10px 10px;
+  padding: 0 15px 15px 15px;
 }
 
 .editor-hidePlaceholder .public-DraftEditorPlaceholder-root {
@@ -125,7 +126,7 @@
   margin-right: 5px;
 }
 
-.link-warpper {
+.url-warpper {
   font-size: 12px;
   padding: 10px;
   position: absolute;
@@ -135,14 +136,31 @@
   z-index: 99;
 }
 
-.link-warpper input {
+.url-warpper .url-warpper-header {
+  margin: 0 7px;
+}
+
+.url-warpper .url-warpper-content {
+  padding: 5px 0px;
+  margin: 0 7px;
+}
+
+.url-warpper input {
   outline: none;
 }
 
 .draft-html {
   width: 600px;
   padding: 15px;
+  word-wrap: break-word;
+  box-sizing: border-box;
 }
+
+.draft-html ul, .draft-html ol {
+  margin: 0;
+  padding: 15px;
+}
+
 .draft-html img {
   width: 100%;
 }

@@ -3,7 +3,7 @@ import {Editor, EditorState, RichUtils, convertToRaw, Modifier, CompositeDecorat
 import {stateToHTML} from 'draft-js-export-html'
 import Controls from './Controls'
 
-import '../public/css/Xeditor.css'
+import '../public/css/xEditor.css'
 import '../public/css/Draft.css'
 
 
@@ -38,6 +38,11 @@ class XEditor extends React.Component {
     this.confirmImage = this._confirmImage.bind(this)
     this.promptForImage = this._promptForImage.bind(this)
     this.onImageKeyDown = this._onImageKeyDown.bind(this)
+
+    this.logState = () => {
+      const content = this.state.editorState.getCurrentContent()
+      console.log(convertToRaw(content))
+    }
   }
 
   // 块级样式
@@ -254,38 +259,43 @@ class XEditor extends React.Component {
 
     return (
       <div>
-        <div className="editor-root">
-          <div className="editor-controls">
-            <Controls 
-              editorState={editorState}
-              onInlineToggle={this.toggleInlineButton}
-              onBlockToggle={this.toggleBlockType}
-              onColorToggle={this.toggleColor}
-              onURLChange={this.onURLChange}
-              promptForLink={this.promptForLink}
-              confirmLink={this.confirmLink}
-              onLinkInputKeyDown={this.onLinkInputKeyDown}
-              removeLink={this.removeLink}
-              closeUrlInput={this.closeUrlInput}
-              urlValue={this.state.urlValue}
-              showURLInput={this.state.showURLInput}
-              showImgInput={this.state.showImgInput}
-              confirmImage = {this.confirmImage}
-              promptForImage = {this.promptForImage}
-              onImageKeyDown = {this.onImageKeyDown} />
+        <h2>基于draft.js构建的react富文本编辑器 -- demo</h2>
+        <div className="main">
+          <div className="editor-root">
+            <div className="editor-controls">
+              <Controls 
+                editorState={editorState}
+                onInlineToggle={this.toggleInlineButton}
+                onBlockToggle={this.toggleBlockType}
+                onColorToggle={this.toggleColor}
+                onURLChange={this.onURLChange}
+                promptForLink={this.promptForLink}
+                confirmLink={this.confirmLink}
+                onLinkInputKeyDown={this.onLinkInputKeyDown}
+                removeLink={this.removeLink}
+                closeUrlInput={this.closeUrlInput}
+                urlValue={this.state.urlValue}
+                showURLInput={this.state.showURLInput}
+                showImgInput={this.state.showImgInput}
+                confirmImage = {this.confirmImage}
+                promptForImage = {this.promptForImage}
+                onImageKeyDown = {this.onImageKeyDown} />
+            </div>
+            <div className={className}>
+              <Editor 
+                editorState={this.state.editorState} 
+                onChange={this.onChange} 
+                placeholder="Tell a story..."
+                blockStyleFn={getBlockStyle}
+                blockRendererFn={mediaBlockRenderer}
+                customStyleMap={styleMap}
+                ref="editor" />
+            </div>
           </div>
-          <div className={className}>
-            <Editor 
-              editorState={this.state.editorState} 
-              onChange={this.onChange} 
-              placeholder="Tell a story..."
-              blockStyleFn={getBlockStyle}
-              blockRendererFn={mediaBlockRenderer}
-              customStyleMap={styleMap}
-              ref="editor" />
-          </div>
+          {this.renderHTML()}
         </div>
-        {this.renderHTML()}
+
+        <button onClick={this.logState}>log</button>
       </div>
     )
   }

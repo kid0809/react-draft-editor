@@ -12,14 +12,18 @@ class PictureButton extends React.Component {
     if (showImgInput) {
       return (
         <div>
-          <div className="link-warpper">
-            <input
-              onChange={onURLChange}
-              ref="url"
-              type="text"
-              value={urlValue}
-              onKeyDown={onImageKeyDown}
-            />
+          <div className="url-warpper">
+            <div className="url-warpper-header">请输入图片地址:</div>
+            <div className="url-warpper-content">
+              <input
+                onChange={onURLChange}
+                ref="url"
+                type="text"
+                value={urlValue}
+                onKeyDown={onImageKeyDown}
+                placeholder="http://"
+              />
+            </div>
           </div>
           <div className="mask" onClick={closeUrlInput}></div>
         </div>

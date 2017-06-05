@@ -12,14 +12,18 @@ class LinkButton extends React.Component {
     if (showURLInput) {
       return (
         <div>
-          <div className="link-warpper">
-            <input
-              onChange={onURLChange}
-              ref="url"
-              type="text"
-              value={urlValue}
-              onKeyDown={onLinkInputKeyDown}
-            />
+          <div className="url-warpper">
+            <div className="url-warpper-header">请输入超链接地址:</div>
+            <div className="url-warpper-content">
+              <input
+                onChange={onURLChange}
+                ref="url"
+                type="text"
+                value={urlValue}
+                onKeyDown={onLinkInputKeyDown}
+                placeholder="http://"
+              />
+            </div>
           </div>
           <div className="mask" onClick={closeUrlInput}></div>
         </div>
